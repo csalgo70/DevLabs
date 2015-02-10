@@ -6,16 +6,11 @@ The transactions are received as JSON. These need to be stored in a data store s
 
 Thus we are currently evaluating Document DB.
 
-----------
-
-
 ##Data
--------------
 
 FORT tool receives its data from Modern Risk API as JSON data. This JSON represents the original transaction in review along with additional information like Account details, and Payment Instrument. So far based on observations of existing data from legacy system, the size of this JSON is well within the **max document size of 256 KB** of azure document db.
 
 ##Database Operations
--------------
 
 Current thought is that we would have a  **Manual Review database** which would have a **Risk Mod Collection** and we need to support the following operations. 
 
@@ -36,7 +31,6 @@ Based on anecdotal evidence, we would **only get 1 JSON per minute** to begin wi
 Eventually after manual decisions are made, these documents would be moved out of this collection / deleted. 
 
 ##Queries
--------------------
 
 Need to support the following queries in an efficient manner as the response times are very important for us. 
 
@@ -48,5 +42,5 @@ Need to support the following queries in an efficient manner as the response tim
 >-Get a  transaction document given a key field value.
 >-Update fields in a document  
 >> - Check out document  
-> >- Update decision by updating some fields in the JSON.
+>> - Update decision by updating some fields in the JSON.
 >> - Check in document 
