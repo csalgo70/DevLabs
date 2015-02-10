@@ -1,24 +1,23 @@
 [TOC]
 
-Evaluate Document DB for Fort
+#Evaluate Document DB for Fort
 ===================
 
+Fraud Review Tool is a Web based manual review tool that shows transaction details of a purchase, to a Fraud Review Agent.
 
-Fraud Review Tool is a manual review tool that shows transaction details of a purchase to a Fraud Review Agents using a Web UI. 
+The transactions are received as JSON. These need to be stored in a data store so that we can provider agents ability to Check Out / Update / Check In documents akin to a source code control repository. 
 
-The transactions that are received as JSON, that need to be stored in a data store that would allow us provide a source control kind of repository to allow users to Check Out / Update / Check In documents. 
-
-Thus we are currently evaluating Document DB. 
+Thus we are currently evaluating Document DB.
 
 ----------
 
 
-Data
+##Data
 -------------
 
 FORT tool receives its data from Modern Risk API as JSON data. This JSON represents the original transaction in review along with additional information like Account details, and Payment Instrument. So far based on observations of existing data from legacy system, the size of this JSON is well within the **max document size of 256 KB** of azure document db.
 
-Database Operations
+##Database Operations
 -------------
 
 Current thought is that we would have a  **Manual Review database** which would have a **Risk Mod Collection** and we need to support the following operations. 
@@ -39,7 +38,7 @@ Based on anecdotal evidence, we would **only get 1 JSON per minute** to begin wi
 
 Eventually after manual decisions are made, these documents would be moved out of this collection / deleted. 
 
-Queries
+##Queries
 -------------------
 
 Need to support the following queries in an efficient manner as the response times are very important for us. 
