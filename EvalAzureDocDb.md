@@ -21,7 +21,7 @@ We would poll Modern Risk API and create new documents in the database based on 
 Based on anecdotal evidence, we would **only get 1 JSON per minute** to begin with for at least modern payout scenario. **Worst case is not known to me at this point**.
 
 #### <i class="icon-upload"></i>Update document
-  > - Check-out document 
+  > - Check-out document - Can I use linq to get atomicity without having to do stored proc ?
   > - Update some fields in a Checked-out document
   > - Check-in document
 
@@ -44,10 +44,14 @@ Need to support the following queries in an efficient manner as the response tim
 - Get a list of transactions (brief data) based on filter criteria
     > - Select is flexible enough to meet our needs along with projections 
 - Get a transaction document given a key field value  
+- Count by filter criteria 
 
+##Support
+- Who would support us with techinical issues we might run into ?
+- What is the SLA if we go with this / Who would we need to work with ?
 
 ##Pending Investigations
- - Performance based on say 10,000 documents ( currently 5000 is daily avg. )
+ - Performance based on say ~6,000 documents ( currently 5000 is daily avg. ). I don't have worst case numbers.
  - Encryption / Decryption 
  - Modelling 
    - Wrap the original payload into document payload with checkout status / permissions.
