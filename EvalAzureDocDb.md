@@ -1,7 +1,6 @@
 [TOC]
 
 #Evaluate Document DB for Fort
-===================
 
 Fraud Review Tool is a Web based manual review tool that shows transaction details of a purchase, to a Fraud Review Agent.
 
