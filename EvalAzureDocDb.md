@@ -21,10 +21,13 @@ We would poll Modern Risk API and create new documents in the database based on 
 Based on anecdotal evidence, we would **only get 1 JSON per minute** to begin with for at least modern payout scenario. **Worst case is not known to me at this point**.
 
 #### <i class="icon-upload"></i>Update document
-  **Update Actions:**
-   - Check-out document.  
-   - Update some fields in a Checked-out document. 
-   - Check-in document  
+  > - Check-out document 
+  > - Update some fields in a Checked-out document
+  > - Check-in document
+
+#### <i class="icon-download"></i> Retrieve Document
+
+Retrieve the document based on some query filter.
 
 #### <i class="icon-trash"></i> Delete a document
 
