@@ -32,16 +32,19 @@ Eventually after manual decisions are made, these documents would be moved out o
 
 ##Queries
 
-Need to support the following queries in an efficient manner as the response times are very important for us.   
-  - Get the top 1 document ordered by SLA date field. 
-   - Select is flexible enough to meet our needs
-   - Order By is not supported but we could use Store Procedure to achieve it. Performance issues ?
-  - Get a list of transactions (brief data) based on filter criteria  
-  - Get a  transaction document given a key field value     
-  - Update fields in a document  
-   - Check out document 
-   - Update decision by updating some fields in the JSON.  
-   - Check in document  
+Need to support the following queries in an efficient manner as the response times are very important for us.  
+
+- Get the top 1 document ordered by SLA date field. 
+    > - Select is flexible enough to meet our needs
+    > - Order By is not supported but we could use Store Procedure to achieve it. Performance issues ?  
+    
+- Get a list of transactions (brief data) based on filter criteria
+- Get a  transaction document given a key field value  
+
+- Update fields in a document  
+   > - Check out document 
+   > - Update decision by updating some fields in the JSON.  
+   > - Check in document  
 
 ##Pending Investigations
  - Performance based on say 10,000 documents ( currently 5000 is daily avg. )
