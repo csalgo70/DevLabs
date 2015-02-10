@@ -12,7 +12,7 @@ FORT tool receives its data from Modern Risk API as JSON data. This JSON represe
 
 ##Database Operations
 
-Current thought is that we would have a  **Manual Review database** which would have a **Risk Mod Collection** and we need to support the following operations. 
+Current thought is that we would have a  **Manual Review database** which would have a **Risk Mod Collection** and we need to support the following operations. Another idea is to have one collection per tenant since we essentially want to have a sorted queue by tenant and later by tenant & agent.
 
 #### <i class="icon-file"></i> Create a document
 
