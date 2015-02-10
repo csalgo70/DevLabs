@@ -18,7 +18,7 @@ Current thought is that we would have a  **Manual Review database** which would 
 
 We would poll Modern Risk API and create new documents in the database based on how many records we get back from the API since the last poll. 
 
-Based on anecdotal evidence, we would **only get 1 JSON per minute** to begin with for at least modern payout scenario. **Worst case is not known to me at this point**.
+Based on anecdotal evidence, we would **only get 1 JSON per minute** to begin with for at least modern payout scenario. **Worst case is not known to me at this point**. If we decide to go with moving all of existing legacy data into its own collection this would increase. Again I don't have numbers with me. Maybe Derrick does. 
 
 #### <i class="icon-upload"></i>Update document
   > - Check-out document - Can I use linq to get atomicity without having to do stored proc ?
