@@ -41,10 +41,6 @@ Need to support the following queries in an efficient manner as the response tim
 - Get a list of transactions (brief data) based on filter criteria
 - Get a  transaction document given a key field value  
 
-- Update fields in a document  
-   > - Check out document 
-   > - Update decision by updating some fields in the JSON.  
-   > - Check in document  
 
 ##Pending Investigations
  - Performance based on say 10,000 documents ( currently 5000 is daily avg. )
