@@ -38,11 +38,12 @@ Eventually after manual decisions are made, these documents would be moved out o
 Need to support the following queries in an efficient manner as the response times are very important for us.  
 
 - Get the top 1 document ordered by SLA date field. 
-    > - Select is flexible enough to meet our needs
-    > - Order By is not supported but we could use Store Procedure to achieve it. Performance issues ?  
+    > - Filter criteria based on tenant or agent name
+    > - Order By is not supported but we could use Store Procedure to achieve it. Performance issues due to full collection scan?  
     
 - Get a list of transactions (brief data) based on filter criteria
-- Get a  transaction document given a key field value  
+    > - Select is flexible enough to meet our needs along with projections 
+- Get a transaction document given a key field value  
 
 
 ##Pending Investigations
