@@ -44,3 +44,9 @@ Need to support the following queries in an efficient manner as the response tim
 >> - Check out document  
 >> - Update decision by updating some fields in the JSON.
 >> - Check in document 
+
+##Pending Investigations
+ - Performance based on say 10,000 documents ( currently 5000 is daily avg. )
+ - Encryption / Decryption 
+ - Modelling ( Wrap the original payload into document payload with checkout status / permissions )
+ -- We can model Account Info / Payment Info as separate collection as its unique by ID.
