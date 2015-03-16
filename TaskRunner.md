@@ -6,13 +6,13 @@ ITaskRunner interface so that we can unit test easily
 
 ```C#
 
-    public interface ITaskRunner
-    {
-        Task RunTask<T>(Func<T> task, Action<T> onTaskComplete, Action<IList<Exception>> onException);
+public interface ITaskRunner
+{
+    Task RunTask<T>(Func<T> task, Action<T> onTaskComplete, Action<IList<Exception>> onException);
 
-        Task RunTask<T, TResult>(Func<T, TResult> task, T taskParameter, Action<TResult> onTaskComplete,
+    Task RunTask<T, TResult>(Func<T, TResult> task, T taskParameter, Action<TResult> onTaskComplete,
             Action<IList<Exception>> onException);
-    }
+}
 ```
 Concrete implementation of the Task runner
 
@@ -58,16 +58,17 @@ private static Task ContinueTask<T>(Task<T> task, Action<T> onTaskComplete, Acti
     return t;
 }
 
-        private static TaskScheduler GetSynchronizationContext()
-        {
-            try
-            {
-                return TaskScheduler.FromCurrentSynchronizationContext();
-            }
-            catch (InvalidOperationException)
-            {
-                return TaskScheduler.Default;
-            }
-        }
+private static TaskScheduler GetSynchronizationContext()
+{
+    try
+    {
+        return TaskScheduler.FromCurrentSynchronizationContext();
     }
+    catch (InvalidOperationException)
+    {
+        return TaskScheduler.Default;
+    }
+}
+
+}
 ```
