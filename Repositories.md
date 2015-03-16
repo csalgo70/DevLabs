@@ -27,6 +27,8 @@ public partial class MyDbEntities : DbContext, IDbContext,
 
 ```C#
 
+Now comes the SqlRepository
+
 public class SqlRepository<T> : IRepository<T> where T : class
 {
     private readonly IDbContext _dbContext;
