@@ -36,7 +36,7 @@ If you are using Entity Framework open your dbname.Context.tt file and update th
 ```C# 
 <#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext, IDbContext
 ```
-What the above would do is generated your dbname.Context.cs class that defines your entities class derving from **IDbContext**
+What the above would do is generate your dbname.Context.cs class that defines your entities class addtionally derving from **IDbContext**
 
 ```C#
 public partial class MyDbEntities : DbContext, IDbContext,
