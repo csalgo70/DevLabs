@@ -24,51 +24,51 @@ public class TaskRunner : ITaskRunner
         return ContinueTask(Task.Factory.StartNew(() => task(taskParameter)), onTaskComplete, onException);
     }
 
-public Task RunTask<T>(Func<T> task, Action<T> onTaskComplete, Action<IList<Exception>> onException)
-{
-   return ContinueTask(Task.Factory.StartNew(task), onTaskComplete, onException);
-}
+    public Task RunTask<T>(Func<T> task, Action<T> onTaskComplete, Action<IList<Exception>> onException)
+    {
+       return ContinueTask(Task.Factory.StartNew(task), onTaskComplete, onException);
+    }
 
-private static Task ContinueTask<T>(Task<T> task, Action<T> onTaskComplete, Action<IList<Exception>> onException)
-{
-    var t = task.ContinueWith(
-        completedTask =>
-        {
-            if (completedTask.Exception != null)
+    private static Task ContinueTask<T>(Task<T> task, Action<T> onTaskComplete, Action<IList<Exception>> onException)
+    {
+        var t = task.ContinueWith(
+            completedTask =>
             {
-                onException(completedTask.Exception.Flatten().InnerExceptions);
-            }
-            else
-            {
-                try
+                if (completedTask.Exception != null)
                 {
-                    onTaskComplete(completedTask.Result);
+                    onException(completedTask.Exception.Flatten().InnerExceptions);
                 }
-                catch (Exception exception)
+                else
                 {
-                   //TODO: Exclude exceptions that should not be handled by user code
-                   //TODO: Maybe we can add extension method to Exception to filter here 
-                   //TODO: and re-throw if shouldn't be handled
+                    try
+                    {
+                        onTaskComplete(completedTask.Result);
+                    }
+                    catch (Exception exception)
+                    {
+                       //TODO: Exclude exceptions that should not be handled by user code
+                       //TODO: Maybe we can add extension method to Exception to filter here 
+                       //TODO: and re-throw if shouldn't be handled
+        
+                        onException(new[] { exception });
+                    }
+                }
+            },
+            GetSynchronizationContext());
+        return t;
+    }
     
-                    onException(new[] { exception });
-                }
-            }
-        },
-        GetSynchronizationContext());
-    return t;
-}
-
-private static TaskScheduler GetSynchronizationContext()
-{
-    try
+    private static TaskScheduler GetSynchronizationContext()
     {
-        return TaskScheduler.FromCurrentSynchronizationContext();
+        try
+        {
+            return TaskScheduler.FromCurrentSynchronizationContext();
+        }
+        catch (InvalidOperationException)
+        {
+            return TaskScheduler.Default;
+        }
     }
-    catch (InvalidOperationException)
-    {
-        return TaskScheduler.Default;
-    }
-}
 
 }
 ```
