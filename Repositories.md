@@ -16,21 +16,27 @@ public interface IRepository<out T>
 ```
 
 ```C#
- public class SqlRepository<T> : IRepository<T> where T : class
- {
-        private readonly IDbContext _dbContext;
 
-        public SqlRepository(IDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+public class SqlRepository<T> : IRepository<T> where T : class
+{
+    private readonly IDbContext _dbContext;
 
-        public IQueryable<T> GetAll()
-        {
-            return _dbContext.Set<T>();
-        }
+    public SqlRepository(IDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
+
+    public IQueryable<T> GetAll()
+    {
+        return _dbContext.Set<T>();
+    }
  }
 ```
+If you are using Entity Framework open your dbname.Context.tt file and update this line to derive from the IDbContext 
+```C# 
+<#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext, IDbContext
+```
+
 Now you can use dependency injection using either Unity or others like ninject.
 
 ```C#
