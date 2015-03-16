@@ -25,10 +25,9 @@ What the above would do is generate your dbname.Context.cs class that defines yo
 public partial class MyDbEntities : DbContext, IDbContext,
 ```
 
-```C#
-
 Now comes the SqlRepository
 
+```C#
 public class SqlRepository<T> : IRepository<T> where T : class
 {
     private readonly IDbContext _dbContext;
