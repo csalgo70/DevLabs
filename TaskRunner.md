@@ -22,7 +22,7 @@ public class TaskRunner : ITaskRunner
     public  Task RunTask<T, TResult>(Func<T, TResult> task, T taskParameter, Action<TResult> onTaskComplete, Action<IList<Exception>> onException)
     {
         return ContinueTask(Task.Factory.StartNew(() => task(taskParameter)), onTaskComplete, onException);
-}
+    }
 
 public Task RunTask<T>(Func<T> task, Action<T> onTaskComplete, Action<IList<Exception>> onException)
 {
