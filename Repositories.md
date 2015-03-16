@@ -36,22 +36,37 @@ If you are using Entity Framework open your dbname.Context.tt file and update th
 ```C# 
 <#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext, IDbContext
 ```
+What the above would do is generated your dbname.Context.cs class that defines your entities class derving from **IDbContext**
 
-Now you can use dependency injection using either Unity or others like ninject.
+```C#
+public partial class MyDbEntities : DbContext, IDbContext,
+```
+
+Now you can use dependency injection using either Unity or others like ninject to map your repository to a SQL repository
 
 ```C#
 public static IUnityContainer RegisterComponents()
 {
      var container = new UnityContainer();
 
-      // don't directly read from App.config in your controller use interface & pass it in - IOC pattern
-      container.RegisterType<IAppSettings, ServiceAppSettings>(); 
-      container.RegisterType<IServiceAppSettings, ServiceAppSettings>();
+      container.RegisterType<IDbContext, MyDbEntities>();
 
-      container.RegisterType<IRepository<myEntityClass>, SqlRepository<myEntityClass>>();
+     container.RegisterType<IRepository<myEntityClass>, SqlRepository<myEntityClass>>();
 
-      GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
+     GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
 
       return container;
 }
 ```
+
+Now with the contoller below it automatically gets passed in the SqlRepository based on DI. You controller class itself is unaware of the fact if its talking to SQL database or Azure tables or some other data source with clean seperation of concerns. At anytime you can change your backend data source and not have to touch your controllers ! 
+
+```C#
+public class MyController : ApiController 
+{
+    private IRepository<myEntityClass> _repository;
+    public MyController(IRepository<myEntityClass> repository)
+    {
+        _repository = repository;
+    }
+}
