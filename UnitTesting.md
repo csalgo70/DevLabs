@@ -32,7 +32,7 @@ public class MyControllerBaseUnitTest : BaseUnitTest
         // Add records here to EntityList to mimick a table in some database or data source
         // ...
         MockInMemoryRepository = new InMemoryRepository<myEntityClass>(EntityList);
-        Controller = new TransactionsController(MockInMemoryRepository);
+        Controller = new MyController(MockInMemoryRepository);
       }
 }
 
