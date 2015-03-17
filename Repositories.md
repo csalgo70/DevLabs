@@ -72,3 +72,28 @@ public class MyController : ApiController
         _repository = repository;
     }
 }
+```
+
+Lets look how the above design helps with unit testing. You can now create an InMemoryRepository which would mimick the rows in a table. During unit testing you can now pass this in to the above controller and thus it won't know its not talking to database but an in memory repository allowing you to fully unit test your controller without any database or external data source.
+
+```C#
+public class InMemoryRepository<T> : IRepository<T> where T : class
+{
+	private readonly IQueryable<T> _entityList;
+
+	public InMemoryRepository(IEnumerable<T> entitList)
+	{
+		if (entitList == null)
+		{
+			throw new ArgumentNullException("entitList");
+		}
+
+		_entityList = entitList.AsQueryable();
+	}
+
+	public IQueryable<T> GetAll()
+	{
+		return _entityList;
+	}
+}
+```
