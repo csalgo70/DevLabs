@@ -20,7 +20,7 @@ public interface IDbContext
 
 Now Open your dbname.Context.tt file and update this line to derive from the IDbContext 
 ```C# 
-<#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext, IDbContext
+<#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext,IDbContext
 ```
 What the above would do is generate your dbname.Context.cs class that defines your entities class addtionally derving from **IDbContext**
 
