@@ -1,12 +1,6 @@
 # DevLabs
 ###Repository pattern in use
 
-```C#
-public interface IDbContext
-{
-    DbSet<TEntity> Set<TEntity>() where TEntity : class;
-}
-```
 
 ```C#
 public interface IRepository<out T>
@@ -15,7 +9,16 @@ public interface IRepository<out T>
 }
 ```
 
-If you are using Entity Framework open your dbname.Context.tt file and update this line to derive from the IDbContext 
+If you are using Entity Framework lets define an interface for the DbContext 
+
+```C#
+public interface IDbContext
+{
+    DbSet<TEntity> Set<TEntity>() where TEntity : class;
+}
+```
+
+Now Open your dbname.Context.tt file and update this line to derive from the IDbContext 
 ```C# 
 <#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext, IDbContext
 ```
