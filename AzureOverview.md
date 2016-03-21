@@ -19,7 +19,7 @@ So lets dive in and start with a very basic question.
 
 The primary business driver is that it reduces your cost to provision, makes it easy for you to scale / deploy.  Say you are a startup with few developers, you can now focus on Application development as opposed to worrying about hardware infrastruture issues. It also reduces your total cost of ownership. Having said that it still doesn't prevent you with going for a hybrid solutions where you have existing on-premise systems that needs to work with a cloud offering. 
 
-## High level components
+## Azure components
 
 - **Compute** : Here as we saw earlier you have two offerings namely IaaS & PaaS.
    -   **IaaS** - Virtual Machines / Containers
