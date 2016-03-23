@@ -17,7 +17,7 @@ So lets dive in and start with a very basic question.
   - SaaS (Software as a Service)
       - These could be APIs that you use in your application like address verification or validating credit card or provide them as a service to your customers. 
 
-The primary business driver is that it reduces your cost to provision, makes it easy for you to scale / deploy.  Say you are a startup with few developers, you can now focus on Application development as opposed to worrying about hardware infrastruture issues. It also reduces your total cost of ownership. Having said that it still doesn't prevent you with going for a hybrid solutions where you have existing on-premise systems that needs to work with a cloud offering. 
+The primary business driver is that it reduces your cost to provision, makes it easy for you to scale / deploy.  Say you are a startup with few developers, you can now focus on Application development as opposed to worrying about hardware infrastructure issues. It also reduces your total cost of ownership. Having said that it still doesn't prevent you with going for a hybrid solutions where you have existing on-premise systems that needs to work with a cloud offering. 
 
 ## Azure components
 
