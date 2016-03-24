@@ -52,3 +52,6 @@ public class  public class When_I_Get_By_Id_On_MyController : MyControllerBaseUn
       Assert.AreEqual(_returnedEntity.Id, _Id);
   }
 }
+```
+
+This design pattern for unit testing helps reduce repeated clutter in your unit tests. Lot of times for a group of tests you might need the same set of mocks etc. Here using the above pattern you can create a base test where you setup the mocks and inherit from that for you particular testing scenario. Also if you observe each test method has only one assert. So when your test fails you know exactly what failed just by looking at the test name. This improves your developer / team velocity. 
