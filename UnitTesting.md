@@ -36,7 +36,7 @@ public class MyControllerBaseUnitTest : BaseUnitTest
       }
 }
 
-public class  public class When_I_Get_By_Id_On_MyController : MyControllerBaseUnitTest
+public class When_I_Get_By_Id_On_MyController : MyControllerBaseUnitTest
 {
   private myEntityClass _returnedEntity;
   private int _id = 1234;
