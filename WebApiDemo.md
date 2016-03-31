@@ -117,6 +117,13 @@ public class SqlReadOnlyRepository<T> : IReadOnlyRepository<T> where T : class
 		return await Task.Factory.StartNew(() => { return GetAll().Where(filter).ToArray(); });
 	}
 }
+
+public partial class EmployeeDbContext : BaseDataContext<EmployeeDbContext>, IDbContext
+{
+	public DbSet<Employee> Employees { get; set; }
+
+	protected override void OnModelCreating(DbModelBuilder modelBuilder)
+	{
 ```
 ### Dependency Injection using Unity
 ```csharp
