@@ -26,7 +26,7 @@ http://apiappdemo.azurewebsites.net/api/Employees/jdoe , we return
         "EmployeeId": 5,
         "Firstname": "Kannan",
         "Lastname": "Sundararajan",
-        "Alias": "v-kansu"
+        "Alias": "kannans"
     }, {
         "EmployeeId": 6,
         "Firstname": "Kevin",
