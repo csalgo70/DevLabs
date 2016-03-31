@@ -36,16 +36,16 @@ http://apiappdemo.azurewebsites.net/api/Employees/jdoe , we return
 }
 ```
 
-The data is stored in Azure SQL Database. 
+The data is stored in Azure SQL Database ( you can click on alias values to invoke the Azure Web API by alias ). 
 
 | EmployeeId    |	Firstname	    | Lastname	| Alias|Type       |	ManagerId|
 | ------------- |:-------------:| ---------:| ----:| ---------:|----------:|
-|1	| Big         |	Boss |	bboss| 	F|	NULL |
-|2	| Joh |	Braddy |	jbraddy |	F |	1 |
-|3	| Brian |	Flinch |	bflinch |	F |	2 |
-|4	| Jane |	Doe |	jdoe |	F	| 3 |
-|5	| Kannan |	Sundararajan |	kannans |	v |	4 |
-|6	| Kevin	| Johnson	| v-kevin |	v |	4 |
+|1	| Big         |	Boss |	[bboss](http://apiappdemo.azurewebsites.net/api/Employees/bboss)| 	F|	NULL |
+|2	| Joh |	Braddy |	[jbraddy](http://apiappdemo.azurewebsites.net/api/Employees/jbraddy) |	F |	1 |
+|3	| Brian |	Flinch |	[bflinch](http://apiappdemo.azurewebsites.net/api/Employees/bflinch) |	F |	2 |
+|4	| Jane |	Doe |	[jdoe](http://apiappdemo.azurewebsites.net/api/Employees/jdoe) |	F	| 3 |
+|5	| Kannan |	Sundararajan |	[kannans](http://apiappdemo.azurewebsites.net/api/Employees/kannans) |	v |	4 |
+|6	| Kevin	| Johnson	| [v-kevin](http://apiappdemo.azurewebsites.net/api/Employees/v-kevin) |	v |	4 |
 
 
 ```csharp
