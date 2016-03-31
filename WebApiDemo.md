@@ -66,6 +66,7 @@ public class EmployeesController : ApiController
         {
             return NotFound();
         }
+        // this is intentionally done here for the demo. UOW would be a better place.
         var manager = await _repository.FindAsync(e => e.EmployeeId == emp.ManagerId);
 
         var directReports = await _repository.FindAllAsync(e => e.ManagerId == emp.EmployeeId);
@@ -73,5 +74,45 @@ public class EmployeesController : ApiController
 
         return Ok(returnModel);
     }
+}
+```
+## ApiAppDemo.DataAccess.Abstract
+
+```csharp
+public interface IReadOnlyRepository<T>
+{
+	IQueryable<T> GetAll();
+	Task<T> FindAsync(Func<T, bool> predicate);
+	Task<IEnumerable<T>> FindAllAsync(Func<T, bool> filter);
+}
+
+public interface IDbContext
+{
+	DbSet<TEntity> Set<TEntity>() where TEntity : class;
+}
+
+public class SqlReadOnlyRepository<T> : IReadOnlyRepository<T> where T : class
+{
+	private readonly IDbContext _dbContext;
+
+	public SqlReadOnlyRepository(IDbContext dbContext)
+	{
+		_dbContext = dbContext;
+	}
+
+	public IQueryable<T> GetAll()
+	{
+		return _dbContext.Set<T>();
+	}
+
+	public async Task<T> FindAsync(Func<T, bool> predicate)
+	{
+		return await Task.Factory.StartNew(() => { return GetAll().FirstOrDefault(predicate); });
+	}
+
+	public async Task<IEnumerable<T>> FindAllAsync(Func<T, bool> filter)
+	{
+		return await Task.Factory.StartNew(() => { return GetAll().Where(filter).ToArray(); });
+	}
 }
 ```
