@@ -68,6 +68,7 @@ public class EmployeesController : ApiController
             return NotFound();
         }
         // this is intentionally done here for the demo. UOW would be a better place.
+        // also not using it as navigation property with EF lazy loading for a reason.
         var manager = await _repository.FindAsync(e => e.EmployeeId == emp.ManagerId);
 
         var directReports = await _repository.FindAllAsync(e => e.ManagerId == emp.EmployeeId);
