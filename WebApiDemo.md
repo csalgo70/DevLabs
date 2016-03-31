@@ -2,7 +2,6 @@
 
 Web API App Demo [ Draft, but functional with real azure deployment to test ]
 
-
 Goal of this demo is to write / deploy a Azure Web API using Azure App Service. So that when we invoke the following api 
 for an employee by his/her alias
  
@@ -143,3 +142,5 @@ public static class UnityConfig
 	}
 }
 ```
+###### TODO:
+- [ ] Secure the Web API using OWin & Azure AD using oAuth 2
