@@ -116,3 +116,19 @@ public class SqlReadOnlyRepository<T> : IReadOnlyRepository<T> where T : class
 	}
 }
 ```
+### Dependency Injection using Unity
+```csharp
+public static class UnityConfig
+{
+	public static void RegisterComponents()
+	{
+		var container = new UnityContainer();
+ 
+		container.RegisterType<IDbContext, EmployeeDbContext>();
+
+		container.RegisterType<IReadOnlyRepository<Employee>, SqlReadOnlyRepository<Employee>>();
+
+		GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
+	}
+}
+```
