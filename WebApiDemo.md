@@ -82,16 +82,27 @@ public class EmployeesController : ApiController
 ### ApiAppDemo.DataAccess.Abstract
 
 ```csharp
+
+public interface IDbContext
+{
+	DbSet<TEntity> Set<TEntity>() where TEntity : class;
+}
+
+public partial class EmployeeDbContext : BaseDataContext<EmployeeDbContext>, IDbContext
+{
+	public DbSet<Employee> Employees { get; set; }
+
+	protected override void OnModelCreating(DbModelBuilder modelBuilder)
+	{
+		//....omitted...
+        }
+}
+
 public interface IReadOnlyRepository<T>
 {
 	IQueryable<T> GetAll();
 	Task<T> FindAsync(Func<T, bool> predicate);
 	Task<IEnumerable<T>> FindAllAsync(Func<T, bool> filter);
-}
-
-public interface IDbContext
-{
-	DbSet<TEntity> Set<TEntity>() where TEntity : class;
 }
 
 public class SqlReadOnlyRepository<T> : IReadOnlyRepository<T> where T : class
@@ -118,13 +129,6 @@ public class SqlReadOnlyRepository<T> : IReadOnlyRepository<T> where T : class
 		return await Task.Factory.StartNew(() => { return GetAll().Where(filter).ToArray(); });
 	}
 }
-
-public partial class EmployeeDbContext : BaseDataContext<EmployeeDbContext>, IDbContext
-{
-	public DbSet<Employee> Employees { get; set; }
-
-	protected override void OnModelCreating(DbModelBuilder modelBuilder)
-	{
 ```
 ### Dependency Injection using Unity
 ```csharp
