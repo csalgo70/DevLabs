@@ -1,7 +1,5 @@
 ### Authenticate 
 
-**STEP 1**: 
-
 POST https://login.microsoftonline.com/{tenant-id}/oauth2/token
 
 Content-Type: application/x-www-form-urlencoded
@@ -18,19 +16,19 @@ In the Body provide the following as x-www-form-urlencoded
 ### How to resize cluster using Resource Manager REST API
 
 
-**STEP 2**:
+**STEP 1**:
 
 POST https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HDInsight/clusters/{clusterName}/roles/workernode/resize?api-version=2015-03-01-preview
 
-Authorization header should be "Bearer {value of access_token from previous STEP 1}"
+Authorization header should be "Bearer {value of access_token from previous **Authenticate** }"
 
 This would return a 202.
 
-**STEP 3**:
+**STEP 2**:
 
-GET {url from Azure-AsyncOperation header value of response from previous STEP 2 }
+GET {url from Azure-AsyncOperation header value of response from previous STEP 1 }
 
-Authorization header should be "Bearer {value of access_token from previous STEP 1}"
+Authorization header should be "Bearer {value of access_token from previous **Authenticate**}"
 
 You would get the following response and thus know the progress.
 
