@@ -1,4 +1,4 @@
-### How to resize cluster using Resource Manager REST API
+### Authenticate 
 
 **STEP 1**: 
 
@@ -14,6 +14,9 @@ In the Body provide the following as x-www-form-urlencoded
 | client_id | service_principal_id
 | resource | https://management.azure.com/
 | client_secret | service_principal_key
+
+### How to resize cluster using Resource Manager REST API
+
 
 **STEP 2**:
 
