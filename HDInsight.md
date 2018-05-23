@@ -1,4 +1,4 @@
-## Using Resource Manager REST API to perform some of the HDInsight actions
+## Using Resource Manager REST API to perform some of the HDInsight actions by Kannan Sundararajan
 
 ### Authenticate 
 
