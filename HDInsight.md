@@ -46,7 +46,8 @@ POST
 https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HDInsight/clusters/{clusterName}/executeScriptActions?api-version=2015-03-01-preview
 
 Authorization header should be "Bearer {value of access_token from previous **Authenticate** }"
-Content-Type should be application/json
+
+Content-Type: application/json
 
 Body should follow the following json schema
 
