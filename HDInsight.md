@@ -15,10 +15,11 @@ In the Body provide the following as x-www-form-urlencoded
 
 ### How to resize cluster using Resource Manager REST API
 
-
 **STEP 1**:
 
-POST https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HDInsight/clusters/{clusterName}/roles/workernode/resize?api-version=2015-03-01-preview
+POST 
+
+https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HDInsight/clusters/{clusterName}/roles/workernode/resize?api-version=2015-03-01-preview
 
 Authorization header should be "Bearer {value of access_token from previous **Authenticate** }"
 
@@ -36,3 +37,30 @@ You would get the following response and thus know the progress.
     "status": "InProgress"
 }
 
+### How to execute action script using Resource Manager REST API
+
+**STEP 1**
+
+POST
+
+https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HDInsight/clusters/{clusterName}/executeScriptActions?api-version=2015-03-01-preview
+
+Authorization header should be "Bearer {value of access_token from previous **Authenticate** }"
+Content-Type should be application/json
+
+Body should follow the following json schema
+
+```json
+{  
+  "scriptActions": [  
+    {  
+      "name": "ScaleUpCluster",  
+      "uri": "https://{storageContainerName}.blob.core.windows.net/cchiq-dataplane/ScaleUpCluster.bash",  
+      "roles": [  
+        "headnode"
+      ]  
+    }
+  ],  
+  "persistOnSuccess": false  
+}
+```
