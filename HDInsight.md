@@ -1,3 +1,5 @@
+## Using Resource Manager REST API to perform some of the HDInsight actions
+
 ### Authenticate 
 
 POST https://login.microsoftonline.com/{tenant-id}/oauth2/token
