@@ -58,7 +58,7 @@ Body should follow the following json schema
   "scriptActions": [  
     {  
       "name": "ScaleUpCluster",  
-      "uri": "https://{storageContainerName}.blob.core.windows.net/cchiq-dataplane/ScaleUpCluster.bash",  
+      "uri": "https://{storageContainerName}.blob.core.windows.net/myscripts/ScaleUpCluster.bash",  
       "roles": [  
         "headnode"
       ]  
