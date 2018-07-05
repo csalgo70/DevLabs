@@ -54,22 +54,39 @@ public interface IRepository<T>
       public string CollectionName { get; private set; }
 
 
-      public CosmosDocumentRepository(string url, string authKey, string databaseId, string collectionName)
-      {
-          _databaseUri = UriFactory.CreateDatabaseUri(databaseId);
-          _collectionUri = UriFactory.CreateDocumentCollectionUri(databaseId, collectionName);
+    public CosmosDocumentRepository(string url, string authKey, string databaseId, string collectionName)
+    {
+        _databaseUri = UriFactory.CreateDatabaseUri(databaseId);
+        _collectionUri = UriFactory.CreateDocumentCollectionUri(databaseId, collectionName);
 
-          DatabaseId = databaseId;
-          CollectionName = collectionName;
+        DatabaseId = databaseId;
+        CollectionName = collectionName;
 
-          _client = new DocumentClient(new Uri(url), authKey);
+        _client = new DocumentClient(new Uri(url), authKey);
 
-          _client.CreateDatabaseIfNotExistsAsync(new Database { Id = databaseId });
-          
-          // TODO: We need to handle partitioning and initial throughput here.
-          _client.CreateDocumentCollectionIfNotExistsAsync(_databaseUri, 
-                                                           new DocumentCollection { Id = collectionName });
-      }
+        _client.CreateDatabaseIfNotExistsAsync(new Database { Id = databaseId });
+
+        var typeProperties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+        var paritionByProperty = typeProperties
+                                   .FirstOrDefault(p => 
+                                          p.GetCustomAttributes(typeof(PartitionAttribute), false).FirstOrDefault() != null);
+
+        DocumentCollection documentCollection = new DocumentCollection { Id = collectionName };
+
+        if(paritionByProperty != null)
+        {
+            var partitionKeyDefinitions = new PartitionKeyDefinition();
+
+            partitionKeyDefinitions.Paths.Add(paritionByProperty.GetCustomAttribute<PartitionAttribute>().PartitionKeyPath);
+
+            documentCollection.PartitionKey = partitionKeyDefinitions;
+        }
+
+        var response = _client
+            .CreateDocumentCollectionIfNotExistsAsync(databaseUri: _databaseUri, 
+                                                      documentCollection: documentCollection, 
+                                                      options: new RequestOptions { OfferThroughput = 25000 }).Result;
+    }
 
       public async Task<T> UpsertAsync(T item)
       {
