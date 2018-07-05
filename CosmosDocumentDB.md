@@ -53,7 +53,7 @@ public interface IRepository<T>
  ```
 
 ```csharp
-  public class CosmosDocumentRepository<T> : IRepository<T> where T : BaseDocumentModel
+  public class CosmosDocumentRepository<T> : ICosmosDocumentRepository<T> where T : BaseDocumentModel
   { 
       private DocumentClient _client;
       private Uri _databaseUri;
