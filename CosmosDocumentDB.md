@@ -104,11 +104,12 @@ public interface IRepository<T>
       }
       
       /// <summary>
-      /// Partition key is used to identify the target partition for this request. It must be set on read and delete operations for 
-      /// all document requests; create, read, update and delete operations for all document attachment requests; and execute 
+      /// Partition key is used to identify the target partition for this request. It must be set on read 
+      /// and delete operations for all document requests; 
+      /// create, read, update and delete operations for all document attachment requests; and execute 
       /// operation on stored producedures.
-      /// For create and update operations on documents, the partition key is optional. When absent, the client library will extract 
-      /// the partition key from the document before sending the request to the server.
+      /// For create and update operations on documents, the partition key is optional. When absent, the 
+      /// client library will extract the partition key from the document before sending the request to the server.
       /// </summary>
       /// <param name="item">Entity </param>
       /// <returns></returns>
