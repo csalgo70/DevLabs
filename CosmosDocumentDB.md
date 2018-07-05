@@ -58,6 +58,7 @@ public interface IRepository<T>
       private DocumentClient _client;
       private Uri _databaseUri;
       private Uri _collectionUri;
+      private readonly bool _isPartitioned;
 
       public string DatabaseId { get; private set; }
       public string CollectionName { get; private set; }
@@ -92,6 +93,7 @@ public interface IRepository<T>
                 .Add(paritionByProperty.GetCustomAttribute<PartitionAttribute>().PartitionKeyPath);
 
             documentCollection.PartitionKey = partitionKeyDefinitions;
+            _isPartitioned = true;
         }
 
         var response = _client
