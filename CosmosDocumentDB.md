@@ -39,9 +39,18 @@ public interface IRepository<T>
     Task<T> CreateAsync(T item);
     Task<T> UpsertAsync(T item);
     Task<T> DeleteAsync(T item);
-    Task<IList<T>> FindAsync(Expression<Func<T, bool>> predicate);
+    Task<T> FindAsync(T item);
 }
 ```
+
+```csharp
+   public interface ICosmosDocumentRepository<T> : IRepository<T>
+    {
+        Task<T> FindById(string id);
+       
+        Task<IList<T>> FindByPartition(object partitionValue);
+    }
+ ```
 
 ```csharp
   public class CosmosDocumentRepository<T> : IRepository<T> where T : BaseDocumentModel
@@ -121,8 +130,54 @@ public interface IRepository<T>
 
       }
 
+     
+        public async Task<T> FindById(string id)
+        {
+            if (_isPartitioned)
+            {
+                throw new Exception("Paritioned collection needs partition key");
+            }
+
+            var results = await FindAsync(mds => mds.Id == id);
+
+            return results.FirstOrDefault();
+        }
+
+        public async Task<IList<T>> FindByPartition(object partitionValue)
+        {
+            if(!_isPartitioned)
+            {
+                throw new Exception("Not a partitioned collection");
+            }
+
+            FeedOptions options = new FeedOptions
+            {
+                PartitionKey = new PartitionKey(partitionValue),
+                MaxItemCount = 1000
+            };
+
+            IDocumentQuery<T> query = _client.CreateDocumentQuery<T>(_collectionUri, options)
+                                             .AsDocumentQuery();
+
+            List<T> results = new List<T>();
+            while (query.HasMoreResults)
+            {
+                FeedResponse<T> queryResponse = await query.ExecuteNextAsync<T>();
+
+                Console.WriteLine("Query batch consumed {0} request units", queryResponse.RequestCharge);
+
+                results.AddRange(queryResponse);
+            }
+
+            return results;
+        }
+
+        public Task<T> FindAsync(T item)
+        {
+            return FindById(item.Id);
+        }
      //TODO: Pagination & enforcement of Parition in request options.
-     public async Task<IList<T>> FindAsync(Expression<Func<T, bool>> predicate)
+     private async Task<IList<T>> FindAsync(Expression<Func<T, bool>> predicate)
      {
         IDocumentQuery<T> query = _client.CreateDocumentQuery<T>(_collectionUri)
                                          .Where(predicate)
