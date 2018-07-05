@@ -78,7 +78,9 @@ public interface IRepository<T>
         {
             var partitionKeyDefinitions = new PartitionKeyDefinition();
 
-            partitionKeyDefinitions.Paths.Add(paritionByProperty.GetCustomAttribute<PartitionAttribute>().PartitionKeyPath);
+            partitionKeyDefinitions
+                .Paths
+                .Add(paritionByProperty.GetCustomAttribute<PartitionAttribute>().PartitionKeyPath);
 
             documentCollection.PartitionKey = partitionKeyDefinitions;
         }
