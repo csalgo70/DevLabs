@@ -65,6 +65,8 @@ public interface IRepository<T>
           _client = new DocumentClient(new Uri(url), authKey);
 
           _client.CreateDatabaseIfNotExistsAsync(new Database { Id = databaseId });
+          
+          // TODO: We need to handle partitioning and initial throughput here.
           _client.CreateDocumentCollectionIfNotExistsAsync(_databaseUri, 
                                                            new DocumentCollection { Id = collectionName });
       }
