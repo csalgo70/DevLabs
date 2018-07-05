@@ -69,7 +69,8 @@ public interface IRepository<T>
         var typeProperties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
         var paritionByProperty = typeProperties
                                    .FirstOrDefault(p => 
-                                          p.GetCustomAttributes(typeof(PartitionAttribute), false).FirstOrDefault() != null);
+                                       p.GetCustomAttributes(typeof(PartitionAttribute), false)
+                                       .FirstOrDefault() != null);
 
         DocumentCollection documentCollection = new DocumentCollection { Id = collectionName };
 
@@ -85,7 +86,8 @@ public interface IRepository<T>
         var response = _client
             .CreateDocumentCollectionIfNotExistsAsync(databaseUri: _databaseUri, 
                                                       documentCollection: documentCollection, 
-                                                      options: new RequestOptions { OfferThroughput = 25000 }).Result;
+                                                      options: new RequestOptions { OfferThroughput = 25000 })
+            .Result;
     }
 
       public async Task<T> UpsertAsync(T item)
