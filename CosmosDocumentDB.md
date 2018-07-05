@@ -121,10 +121,21 @@ public interface IRepository<T>
 
       }
 
-      public Task<IList<T>> FindAsync(Expression<Func<T, bool>> predicate)
-      {
-          throw new NotImplementedException();
-      }
+     //TODO: Pagination & enforcement of Parition in request options.
+     public async Task<IList<T>> FindAsync(Expression<Func<T, bool>> predicate)
+     {
+        IDocumentQuery<T> query = _client.CreateDocumentQuery<T>(_collectionUri)
+                                         .Where(predicate)
+                                         .AsDocumentQuery();
+
+        List<T> results = new List<T>();
+        while (query.HasMoreResults)
+        {
+            results.AddRange(await query.ExecuteNextAsync<T>());
+        }
+
+        return results;
+     }
       
       /// <summary>
       /// Partition key is used to identify the target partition for this request. It must be set on read 
